@@ -8,7 +8,7 @@ RUN apt-get install -q -y openjdk-7-jre-headless && \
     apt-get update && \
     apt-get install -y ansible && \
     echo '[local]\nlocalhost\n' > /etc/ansible/hosts
-ADD http://mirrors.jenkins-ci.org/war/1.624/jenkins.war /opt/jenkins.war
+ADD http://mirrors.jenkins-ci.org/war/1.636/jenkins.war /opt/jenkins.war
 RUN chmod 644 /opt/jenkins.war
 VOLUME /var/lib/jenkins
 ENV JENKINS_HOME /var/lib/jenkins
