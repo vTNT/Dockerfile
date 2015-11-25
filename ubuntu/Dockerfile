@@ -19,7 +19,7 @@ RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y git vim && \
+  apt-get install -y software-properties-common git vim && \
   rm -rf /var/lib/apt/lists/*
 
 # Set environment variables.
