@@ -63,4 +63,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 # Expose ports.
 EXPOSE 80
 
-CMD ["/usr/local/bin/supervisord", "-n"]
+# Define default command.
+COPY entrypoint.sh /bin/entrypoint.sh
+RUN chmod +x /bin/entrypoint.sh
+ENTRYPOINT ["/bin/entrypoint.sh"]
