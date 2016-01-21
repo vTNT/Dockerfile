@@ -64,6 +64,6 @@ ADD ./supervisord.conf /etc/supervisord.conf
 EXPOSE 80
 
 # Define default command.
-COPY entrypoint.sh /bin/entrypoint.sh
-RUN chmod +x /bin/entrypoint.sh
-ENTRYPOINT ["/bin/entrypoint.sh"]
+COPY entrypoint.sh /sbin/entrypoint.sh
+RUN chmod +x /sbin/entrypoint.sh
+ENTRYPOINT ["/sbin/entrypoint.sh"]
