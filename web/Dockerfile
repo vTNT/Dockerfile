@@ -10,7 +10,7 @@ FROM registry.dkhs.com/ubuntu
 RUN \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
-  apt-get install -y python-pip mysql-client libmysqlclient-dev python2.7-dev python-setuptools openssh-server && \
+  apt-get install -y python-pip mysql-client libmysqlclient-dev python2.7-dev python-setuptools openssh-server libssl-dev && \
   apt-get install -y libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev && \
   apt-get install -y nginx && \
   rm -rf /var/lib/apt/lists/* && \
