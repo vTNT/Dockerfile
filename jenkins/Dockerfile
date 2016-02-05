@@ -15,6 +15,7 @@ ENV JENKINS_HOME /var/lib/jenkins
 ENV TZ Asia/Shanghai
 
 COPY docker-entrypoint.sh /
+ADD requirements.yml /root/requirements.yml
 RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

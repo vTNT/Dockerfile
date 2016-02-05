@@ -1,0 +1,5 @@
+---
+- src: https://github.com/vTNT/ansible-aptget.git
+- src: https://github.com/vTNT/ansible-nginx.git
+- src: https://github.com/vTNT/ansible-celery.git
+- src: https://github.com/vTNT/ansible-rabbitmq.git
