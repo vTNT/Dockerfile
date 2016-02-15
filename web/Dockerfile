@@ -29,7 +29,6 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server && \
   rm -rf /var/lib/apt/lists/* && \
-  rabbitmq-plugins enable rabbitmq_management && \
   echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config && \
   chown -R rabbitmq:rabbitmq /var/lib/rabbitmq && \
   chown -R rabbitmq:rabbitmq /var/log/rabbitmq
@@ -43,6 +42,13 @@ ADD celeryd/celeryd.default /etc/default/celeryd
 
 RUN /usr/bin/easy_install celery
 RUN chmod +x /etc/init.d/celeryd
+
+# Install npm
+RUN \
+  add-apt-repository -y ppa:chris-lea/node.js && \
+  apt-get update && \
+  apt-get install -y nodejs && \
+  rm -rf /var/lib/apt/lists/*
 
 # Install SSH
 RUN mkdir /var/run/sshd
