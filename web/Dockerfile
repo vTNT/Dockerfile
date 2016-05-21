@@ -10,8 +10,9 @@ FROM registry.dkhs.com/ubuntu
 RUN \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
-  apt-get install -y python-pip mysql-client libmysqlclient-dev python2.7-dev python-setuptools openssh-server libssl-dev && \
+  apt-get install -y time python-pip mysql-client libmysqlclient-dev python2.7-dev python-setuptools openssh-server libssl-dev && \
   apt-get install -y libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev && \
+  apt-get install -y memcached && \
   apt-get install -y nginx && \
   rm -rf /var/lib/apt/lists/* && \
   chown -R www-data:www-data /var/lib/nginx
@@ -50,6 +51,9 @@ RUN \
   apt-get install -y nodejs && \
   rm -rf /var/lib/apt/lists/*
 
+RUN cd /var/www/html && \
+  npm install --save-dev gulp
+
 # Install SSH
 RUN mkdir /var/run/sshd
 RUN echo 'root:123456' | chpasswd
@@ -68,6 +72,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 
 # Expose ports.
 EXPOSE 80
+EXPOSE 443
 
 # Define default command.
 COPY entrypoint.sh /sbin/entrypoint.sh
