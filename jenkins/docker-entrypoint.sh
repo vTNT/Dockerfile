@@ -30,6 +30,8 @@ if find $DATA/plugins -maxdepth 0 -empty | read v; then
 	(cd $DATA/plugins && wget --no-check-certificate $PLUGINS_ENDPOINT/ssh-slaves.hpi)
 	(cd $DATA/plugins && wget --no-check-certificate $PLUGINS_ENDPOINT/durable-task.hpi)
 	(cd $DATA/plugins && wget --no-check-certificate $PLUGINS_ENDPOINT/docker-plugin.hpi)
+	(cd $DATA/plugins && wget --no-check-certificate $PLUGINS_ENDPOINT/scriptler.hpi)
+	(cd $DATA/plugins && wget --no-check-certificate $PLUGINS_ENDPOINT/dynamicparameter.hpi)
 fi
 
 exec java -jar /opt/jenkins.war
