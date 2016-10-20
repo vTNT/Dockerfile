@@ -1,0 +1,19 @@
+==================ubuntu=====================
+作为dkhs基础系统，版本是ubuntu14.04
+build.sh: 执行即可；默认创建images为registry.dkhs.com/ubuntu
+
+==================web=======================
+主要服务Nginx,Rabbitmq,Celery
+
+===================jenkins==================
+jenkins镜像,包含ansible
+
+===================nexus====================
+maven私服：http://pan.baidu.com/s/1mgznhd2 先下载然后放到file目录，然后改名成nexus-latest-bundle.tar.gz
+
+===================sentry===================
+versin:6.4.4
+
+Usage:
+     docker run -t -d -i -p xxx:xxx --name container_name image_name 
+
