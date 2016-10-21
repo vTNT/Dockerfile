@@ -19,6 +19,8 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   chmod +x /usr/local/bin/rabbitmq-start
 
+VOLUME ["/var/log/rabbitmq"]
+
 # Define default command.
 CMD ["rabbitmq-start"]
 
