@@ -24,8 +24,8 @@ RUN \
   chown -R www-data:www-data /var/lib/nginx
 
 # Add files.
-ADD nginx/nginx.conf /etc/nginx/nginx.conf
-ADD nginx/nginx-site.conf /etc/nginx/sites-available/default
+ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
+ADD ./nginx/nginx-site.conf /etc/nginx/sites-enabled/default
 
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
 
