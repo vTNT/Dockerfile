@@ -9,6 +9,11 @@ FROM registry.cn-hangzhou.aliyuncs.com/acs-sample/ubuntu:14.04
 ENV LANG en_US.utf8
 ENV LANGUAGE en_US.utf8
 
+RUN mv /etc/localtime /etc/localtime.old; ln -s /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
+ADD cron/root /var/spool/cron/crontabs/root
+ADD cron/logrotate_nginx.conf /home/cron/logrotate_nginx.conf
+
 # Install.
 RUN \
   locale-gen "en_US.UTF-8" && \
@@ -19,15 +24,18 @@ RUN \
   apt-get install -y libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev memcached && \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
+  apt-get upgrade -y && \
   apt-get install -y nginx && \
   rm -rf /var/lib/apt/lists/* && \
   chown -R www-data:www-data /var/lib/nginx
 
 # Add files.
-ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
-ADD ./nginx/nginx-site.conf /etc/nginx/sites-enabled/default
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/nginx-site.conf /etc/nginx/sites-enabled/default
 
-VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
+RUN mkdir -p /var/log/nginx/uwsgi
+
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/dkhs/dkhs_web", "/home/cron"]
 
 # Install Celeryd
 RUN mkdir -p /var/log/celery
@@ -72,6 +80,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
+EXPOSE 22
 
 # Define default command.
 COPY entrypoint.sh /sbin/entrypoint.sh

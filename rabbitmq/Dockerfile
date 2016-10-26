@@ -3,6 +3,8 @@ FROM registry.cn-hangzhou.aliyuncs.com/acs-sample/ubuntu:14.04
 ENV LANG en_US.utf8
 ENV LANGUAGE en_US.utf8
 
+RUN mv /etc/localtime /etc/localtime.old; ln -s /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
 # Add files.
 ADD bin/rabbitmq-start /usr/local/bin/
 
@@ -15,6 +17,7 @@ RUN \
   wget -qO - https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
   echo "deb http://www.rabbitmq.com/debian/ testing main" > /etc/apt/sources.list.d/rabbitmq.list && \
   apt-get update && \
+  apt-get upgrade -y && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server && \
   rm -rf /var/lib/apt/lists/* && \
   chmod +x /usr/local/bin/rabbitmq-start
