@@ -21,4 +21,5 @@
 # 
 # m h  dom mon dow   command
 
-00 00 * * *　/usr/sbin/logrotate -f /home/cron/logrotate_nginx.conf
+00 00 * * * /usr/sbin/logrotate -f /etc/logrotate.d/nginx
+*/10 * * * * /usr/local/bin/uwsgi --reload /tmp/uwsgi_dkhs.pid

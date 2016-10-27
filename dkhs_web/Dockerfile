@@ -12,7 +12,6 @@ ENV LANGUAGE en_US.utf8
 RUN mv /etc/localtime /etc/localtime.old; ln -s /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 
 ADD cron/root /var/spool/cron/crontabs/root
-ADD cron/logrotate_nginx.conf /home/cron/logrotate_nginx.conf
 
 # Install.
 RUN \
@@ -22,18 +21,21 @@ RUN \
   apt-get install -y time python-pip mysql-client libmysqlclient-dev python2.7-dev python-setuptools openssh-server libssl-dev && \
   apt-get install -y curl git vim lrzsz software-properties-common openssl libssl1.0.0 apt-transport-https && \
   apt-get install -y libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev memcached && \
+  apt-get upgrade -y
+
+RUN \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
-  apt-get upgrade -y && \
   apt-get install -y nginx && \
   rm -rf /var/lib/apt/lists/* && \
-  chown -R www-data:www-data /var/lib/nginx
+  mkdir -p /var/log/nginx/uwsgi && \
+  chown -R www-data:www-data /var/lib/nginx && \
+  chown -R www-data:www-data /var/log/nginx
 
 # Add files.
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/nginx-site.conf /etc/nginx/sites-enabled/default
-
-RUN mkdir -p /var/log/nginx/uwsgi
+ADD cron/logrotate_nginx.conf /etc/logrotate.d/nginx
 
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/dkhs/dkhs_web", "/home/cron"]
 
