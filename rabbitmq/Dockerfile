@@ -22,6 +22,8 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   chmod +x /usr/local/bin/rabbitmq-start
 
+RUN echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
+
 VOLUME ["/var/log/rabbitmq"]
 
 # Define default command.
@@ -29,3 +31,4 @@ CMD ["rabbitmq-start"]
 
 # Expose ports.
 EXPOSE 5672
+EXPOSE 25672
