@@ -55,8 +55,8 @@ ADD .npmrc /root/.npmrc
 # Install npm
 RUN \
   curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://deb.nodesource.com/node_4.x trusty main" | tee /etc/apt/sources.list.d/nodesource.list && \
-  echo "deb-src https://deb.nodesource.com/node_4.x trusty main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
+  echo "deb https://deb.nodesource.com/node_6.x trusty main" | tee /etc/apt/sources.list.d/nodesource.list && \
+  echo "deb-src https://deb.nodesource.com/node_6.x trusty main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
   apt-key adv --keyserver pgp.mit.edu --recv D101F7899D41F3C3 && \
   echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update && \
