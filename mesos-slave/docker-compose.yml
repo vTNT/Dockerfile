@@ -1,5 +1,5 @@
 slave1:
-  image: registry.cn-hangzhou.aliyuncs.com/amoy_dkhs/dkhs_mesos_agent
+  image: registry.cn-hangzhou.aliyuncs.com/amoy_dkhs/dkhs_mesos_slave
   privileged: true
   restart: always
   ports:
