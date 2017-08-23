@@ -1,13 +1,21 @@
-FROM registry.dkhs.com/ubuntu
-MAINTAINER linyd "vbb625@gmail.com"
+FROM registry.cn-hangzhou.aliyuncs.com/acs-sample/ubuntu:14.04
 
-RUN apt-get update && apt-get clean
-RUN apt-get install -q -y openjdk-7-jre-headless && \
-    apt-get install --no-install-recommends -y software-properties-common && \
-    apt-add-repository ppa:ansible/ansible && \
+ENV LANG en_US.utf8
+ENV LANGUAGE en_US.utf8
+
+RUN mv /etc/localtime /etc/localtime.old; ln -s /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
+RUN \
+    locale-gen "en_US.UTF-8" && \
+    locale-gen "zh_CN.UTF-8" && \
+    apt-get update && apt-get clean
+    
+RUN \
+    apt-get install -y software-properties-common wget && \
+    add-apt-repository ppa:openjdk-r/ppa && \
     apt-get update && \
-    apt-get install -y ansible && \
-    echo -e '[local]\nlocalhost\n' > /etc/ansible/hosts
+    apt-get install -y openjdk-8-jdk openjdk-8-jre lib32stdc++6 lib32z1 lib32z1-dev
+
 ADD http://mirrors.jenkins-ci.org/war/latest/jenkins.war /opt/jenkins.war
 RUN chmod 644 /opt/jenkins.war
 VOLUME /var/lib/jenkins
